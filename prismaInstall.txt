@@ -1,0 +1,6 @@
+Para manipular o acesso ao banco de dados pode ser utilizado o prisma
+  instalação:
+    npm install prisma --save
+    npx prisma
+    npx prisma init
+    npm i @prisma/client
