@@ -10,8 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model tbl_usuario {
-  id Int @id @default(autoincrement())
-  nome String? 
-  email String @unique
-}
+// Criaçao de tabela utilizando ORM
+// Para verificar se o prisma sincronizou com o BD
+// npx prisma migrate dev
+//model tbl_usuario {
+//  id Int @id @default(autoincrement())
+//  nome String? 
+//  email String @unique
+//}

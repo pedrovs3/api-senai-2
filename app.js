@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import homeRoutes from './src/routes/homeRoutes';
+import aulaRoutes from './src/routes/alunoRoutes';
 import corsMiddleware from './src/middlewares/corsMiddleware';
 
 class App {
@@ -18,7 +18,7 @@ class App {
   }
 
   routes() {
-    this.app.use('/', homeRoutes);
+    this.app.use('/', aulaRoutes);
   }
 }
 
