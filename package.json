@@ -1,5 +1,5 @@
 {
-  "name": "integrated_project_api",
+  "name": "aula20",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "build": "./node_modules/.bin/netlify-lambda build ./src"
   },
   "keywords": [],
-  "author": "",
+  "author": "Pedro Vieira",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.23.0",
