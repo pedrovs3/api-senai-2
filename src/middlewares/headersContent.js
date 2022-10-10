@@ -4,6 +4,8 @@ const headContent = async (req, res, next) => {
   if (headerContentType !== 'application/json') {
     res.status(415).json({ message: 'Content-Type incorreto.' });
   }
+
+
   next();
 };
 
