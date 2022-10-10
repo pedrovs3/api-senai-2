@@ -1,6 +1,13 @@
+/**
+ * Objetivo: Api responsavel pela manipulaçao do back (CRUD)
+ * Autor: Pedro Vieira
+ * data_criacao: 10/10/2022
+ * versao: 1.0.0
+ */
+
 import express from 'express';
 import cors from 'cors';
-import aulaRoutes from './src/routes/alunoRoutes';
+import alunoRoutes from './src/routes/alunoRoutes';
 import corsMiddleware from './src/middlewares/corsMiddleware';
 
 class App {
@@ -18,7 +25,7 @@ class App {
   }
 
   routes() {
-    this.app.use('/', aulaRoutes);
+    this.app.use('/', alunoRoutes);
   }
 }
 

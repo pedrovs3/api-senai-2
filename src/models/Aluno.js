@@ -1,3 +1,10 @@
+/**
+ * Objetivo: Arquivo responsavel pela manipulaçao do banco (tbl_aluno)
+ * Autor: Pedro Vieira
+ * data_criacao: 10/10/2022
+ * versao: 1.0.0
+ */
+
 // Import da classe PrismaClient, que é responsavel pelas interações com o BD
 import { PrismaClient } from '@prisma/client';
 
@@ -6,7 +13,17 @@ const prisma = new PrismaClient();
 
 class Aluno {
   async insertAluno(aluno) {
+    const addAluno = await prisma.$queryRaw `insert into tbl_aluno (${aluno.nome},
+      ${aluno.foto}, 
+      ${aluno.sexo}, 
+      ${aluno.rg}, 
+      ${aluno.cpf}, 
+      ${aluno.email}, 
+      ${aluno.telefone}, 
+      ${aluno.celular}, 
+      ${aluno.data_nascimento})`;
 
+    return (addAluno.length > 0 ? addAluno : false);
   }
 
   async selectAllAlunos() {
@@ -26,13 +43,13 @@ class Aluno {
     return (rsAluno.length > 0 ? rsAluno : false);
   }
 
-  async updateAluno(aluno) {
+  // async updateAluno(aluno) {
 
-  }
+  // }
 
-  async deleteAluno(id) {
+  // async deleteAluno(id) {
 
-  }
+  // }
 }
 
 export default new Aluno();

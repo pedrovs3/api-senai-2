@@ -1,3 +1,10 @@
+/**
+ * Objetivo: Arquivo responsavel pelas rotas (endpoint) dos alunos.
+ * Autor: Pedro Vieira
+ * data_criacao: 10/10/2022
+ * versao: 1.0.0
+ */
+
 import { Router } from 'express';
 import alunoController from '../controllers/AlunoController';
 
