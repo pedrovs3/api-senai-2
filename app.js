@@ -9,6 +9,7 @@ import express from 'express';
 import cors from 'cors';
 import alunoRoutes from './src/routes/alunoRoutes';
 import corsMiddleware from './src/middlewares/corsMiddleware';
+import headContent from './src/middlewares/headersContent';
 
 class App {
   constructor() {
@@ -21,11 +22,12 @@ class App {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
     this.app.use(corsMiddleware);
+    this.app.use(headContent);
     this.app.use(cors());
   }
 
   routes() {
-    this.app.use('/', alunoRoutes);
+    this.app.use('/student/', alunoRoutes);
   }
 }
 

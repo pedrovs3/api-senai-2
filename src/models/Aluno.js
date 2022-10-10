@@ -12,24 +12,20 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class Aluno {
-  async insertAluno(aluno) {
-    const addAluno = await prisma.$queryRaw `insert into tbl_aluno (${aluno.nome},
-      ${aluno.foto}, 
-      ${aluno.sexo}, 
-      ${aluno.rg}, 
-      ${aluno.cpf}, 
-      ${aluno.email}, 
-      ${aluno.telefone}, 
-      ${aluno.celular}, 
-      ${aluno.data_nascimento})`;
+  async insertAluno({
+    nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento,
+  }) {
+    const addAluno = await prisma.$queryRaw `insert into tbl_aluno (nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento)
+    values (${nome}, ${foto}, ${sexo}, ${rg}, ${cpf}, ${email}, ${telefone}, ${celular}, ${data_nascimento});
+  `;
 
-    return (addAluno.length > 0 ? addAluno : false);
+    return addAluno;
   }
 
   async selectAllAlunos() {
     // eslint-disable-next-line max-len
     // Foi criado um objeto do tipo RecordSet (rsAlunos) para receber os dados do banco, atraves do script sql (SELECT)
-    const rsAlunos = await prisma.$queryRaw `select * from tbl_aluno`;
+    const rsAlunos = await prisma.$queryRaw `select * from tbl_aluno;`;
 
     // return (rsAlunos.length > 0 ? rsAlunos : false);
 
@@ -38,18 +34,23 @@ class Aluno {
   }
 
   async selectAluno(id) {
-    const rsAluno = await prisma.$queryRaw `select * from tbl_aluno where id=${id}`;
+    const rsAluno = await prisma.$queryRaw `select * from tbl_aluno where id = ${id};`;
 
-    return (rsAluno.length > 0 ? rsAluno : false);
+    return (rsAluno.length > 0 ? rsAluno[0] : false);
   }
 
-  // async updateAluno(aluno) {
+  async updateAluno(updateData, id) {
+    console.log(`update tbl_aluno set ${updateData} where id = ${id}`);
+    const updatedAluno = await prisma.$queryRaw `UPDATE tbl_aluno SET ${updateData} where id = ${id};`;
 
-  // }
+    console.log(updatedAluno);
+  }
 
-  // async deleteAluno(id) {
+  async deleteAluno(id) {
+    const deletedAluno = await prisma.$queryRaw `DELETE from tbl_aluno WHERE id = ${id};`;
 
-  // }
+    return deletedAluno;
+  }
 }
 
 export default new Aluno();

@@ -1,0 +1,1 @@
+const validateEmpty = (body) => {};
