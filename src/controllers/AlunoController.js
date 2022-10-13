@@ -42,9 +42,9 @@ class AlunoController {
   // Store (Post) prisma create
   async store(req, res) {
     try {
-      const addAluno = await Aluno.insertAluno(req.body);
+      const response = await Aluno.insertAluno(req.body);
 
-      return res.status(200).json({ message: 'Aluno criado com exito!' });
+      return res.status(201).json({ message: 'Aluno criado com exito!' });
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }

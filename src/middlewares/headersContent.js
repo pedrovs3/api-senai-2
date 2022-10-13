@@ -5,7 +5,6 @@ const headContent = async (req, res, next) => {
     res.status(415).json({ message: 'Content-Type incorreto.' });
   }
 
-
   next();
 };
 

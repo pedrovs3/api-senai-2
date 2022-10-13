@@ -15,41 +15,41 @@ class Aluno {
   async insertAluno({
     nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento,
   }) {
-    const addAluno = await prisma.$queryRaw `insert into tbl_aluno (nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento)
-    values (${nome}, ${foto}, ${sexo}, ${rg}, ${cpf}, ${email}, ${telefone}, ${celular}, ${data_nascimento});
+    const sql = `insert into tbl_aluno (nome, foto, sexo, rg, cpf, email, telefone, celular, data_nascimento)
+    values ('${nome}', '${foto}', '${sexo}', '${rg}', '${cpf}', '${email}', '${telefone}', '${celular}', '${data_nascimento}');
   `;
 
-    return addAluno;
+    // Executa o script no banco de dados (Com variaveis).
+    const response = await prisma.$executeRawUnsafe(sql);
+
+    return (!!response);
   }
 
   async selectAllAlunos() {
-    // eslint-disable-next-line max-len
-    // Foi criado um objeto do tipo RecordSet (rsAlunos) para receber os dados do banco, atraves do script sql (SELECT)
-    const rsAlunos = await prisma.$queryRaw `select * from tbl_aluno;`;
+    // Foi criado um objeto do tipo RecordSet (rsAlunos)
+    // para receber os dados do banco, atraves do script sql (SELECT)
+    const rsAlunos = await prisma.$queryRaw `SELECT * FROM tbl_aluno ORDER BY id DESC;`;
 
-    // return (rsAlunos.length > 0 ? rsAlunos : false);
-
-    if (rsAlunos.length > 0) return rsAlunos;
-    return false;
+    return (rsAlunos.length > 0 ? rsAlunos : false);
   }
 
   async selectAluno(id) {
-    const rsAluno = await prisma.$queryRaw `select * from tbl_aluno where id = ${id};`;
+    const rsAluno = await prisma.$queryRawUnsafe `SELECT * FROM tbl_aluno WHERE id = ${id};`;
 
     return (rsAluno.length > 0 ? rsAluno[0] : false);
   }
 
   async updateAluno(updateData, id) {
-    console.log(`update tbl_aluno set ${updateData} where id = ${id}`);
-    const updatedAluno = await prisma.$queryRaw `UPDATE tbl_aluno SET ${updateData} where id = ${id};`;
+    const sql = `UPDATE tbl_aluno SET ${updateData} WHERE id = ${id};`;
+    const updatedAluno = await prisma.$queryRawUnsafe(sql);
 
-    console.log(updatedAluno);
+    return (!!updatedAluno);
   }
 
   async deleteAluno(id) {
-    const deletedAluno = await prisma.$queryRaw `DELETE from tbl_aluno WHERE id = ${id};`;
+    const deletedAluno = await prisma.$queryRaw `DELETE FROM tbl_aluno WHERE id = ${id};`;
 
-    return deletedAluno;
+    return (!!deletedAluno);
   }
 }
 
