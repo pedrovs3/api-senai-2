@@ -5,7 +5,9 @@ const validateEmpty = (body) => {
     nome, foto, rg, cpf, email, data_nascimento,
   } = body;
 
-  if (Object.values(body).includes('')) {
+  const arrayObrigatorios = [nome, foto, rg, cpf, email, data_nascimento];
+
+  if (arrayObrigatorios.includes('')) {
     return false;
   }
 
