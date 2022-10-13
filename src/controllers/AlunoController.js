@@ -6,6 +6,7 @@
  * versao: 1.0.0
  */
 
+import { successfulMessage } from '../config/messages';
 import Aluno from '../models/Aluno';
 
 class AlunoController {
@@ -44,7 +45,7 @@ class AlunoController {
     try {
       const response = await Aluno.insertAluno(req.body);
 
-      return res.status(201).json({ message: 'Aluno criado com exito!' });
+      return res.status(201).json({ message: successfulMessage.STUDENT_CREATED });
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }

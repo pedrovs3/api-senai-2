@@ -4,18 +4,23 @@
  * Versao: 1.0.0
 */
 
+import { errorsMessage } from '../config/messages';
 import validateEmpty from '../utils/validateEmpty';
 
 const bodyContent = (req, res, next) => {
-  const { body } = req;
+  try {
+    const { body } = req;
 
-  if (!req.body || Object.keys(body).length === 0) {
-    return res.status(400).json({ message: 'Nenhum dado enviado.' });
+    if (!req.body || Object.keys(body).length === 0) {
+      throw new Error(errorsMessage.EMPTY_BODY);
+    }
+
+    if (!validateEmpty(body)) throw new Error(errorsMessage.EMPTY_REQUIRED_ERROR);
+
+    return next();
+  } catch (e) {
+    return res.status(400).json({ error: e.message });
   }
-
-  if (!validateEmpty(body)) return res.status(400).json({ message: 'Algum atributo obrigatorio esta vazio.' });
-
-  return next();
 };
 
 export default bodyContent;
