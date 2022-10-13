@@ -9,8 +9,6 @@ const validateEmpty = (body) => {
 
   if (arrayObrigatorios.includes('')) return false;
 
-  if (!emailValidator(email)) return false;
-
   return true;
 };
 

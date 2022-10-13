@@ -6,8 +6,10 @@
 const invalidEmailError = 'Invalid email.';
 
 const errorsMessage = {
-  EMPTY_REQUIRED: 'Empty required fields',
+  REQUIRED_FIELDS: 'Empty required fields',
   EMPTY_BODY: 'Nenhum dado foi enviado',
+  INVALID_EMAIL: 'O email fornecido é invalido.',
+  CONTENT_TYPE: 'O cabecalho da requisicao nao contem um content-type Correto.',
 };
 
 const successfulMessage = {

@@ -5,17 +5,19 @@
 */
 
 import { errorsMessage } from '../config/messages';
+import emailValidator from '../utils/emailValidator';
 import validateEmpty from '../utils/validateEmpty';
 
 const bodyContent = (req, res, next) => {
   try {
-    const { body } = req;
-
-    if (!req.body || Object.keys(body).length === 0) {
+    if (!req.body || Object.keys(req.body).length === 0) {
       throw new Error(errorsMessage.EMPTY_BODY);
     }
 
-    if (!validateEmpty(body)) throw new Error(errorsMessage.EMPTY_REQUIRED_ERROR);
+    const { body } = req;
+
+    if (!validateEmpty(body)) throw new Error(errorsMessage.EMPTY_REQUIRED_ERROR.message);
+    if (!emailValidator(body.email)) throw new Error(errorsMessage.INVALID_EMAIL);
 
     return next();
   } catch (e) {
