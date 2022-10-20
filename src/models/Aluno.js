@@ -40,6 +40,16 @@ class Aluno {
   }
 
   async updateAluno(updateData, id) {
+    /* const sql = `UPDATE tbl_aluno SET nome = ${body.nome},
+    foto = ${body.foto},
+    sexo = ${body.sexo},
+    rg = ${body.rg},
+    cpf = ${body.cpf},
+    email = ${body.email},
+    telefone = ${body.telefone},
+    celular = ${body.celular},
+    data_nascimento = ${body.data_nascimento} WHERE id = ${id}` */
+
     const sql = `UPDATE tbl_aluno SET ${updateData} WHERE id = ${id};`;
     const updatedAluno = await prisma.$queryRawUnsafe(sql);
 

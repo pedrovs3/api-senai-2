@@ -17,7 +17,9 @@ const bodyContent = (req, res, next) => {
     const { body } = req;
 
     if (!validateEmpty(body)) throw new Error(ERRORS_MESSAGE.REQUIRED_FIELDS);
-    if (!emailValidator(body.email)) throw new Error(ERRORS_MESSAGE.INVALID_EMAIL);
+    if (body.email) {
+      if (!emailValidator(body.email)) throw new Error(ERRORS_MESSAGE.INVALID_EMAIL);
+    }
 
     return next();
   } catch (e) {
