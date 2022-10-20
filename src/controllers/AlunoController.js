@@ -66,6 +66,9 @@ class AlunoController {
   async update(req, res) {
     try {
       const { id } = req.params;
+
+      // **** FAZER FUNÇAO PARA VERIFICAR A AUSENCIA DO ID NA ROTA ********* \\
+
       // Update personalizado para chaves especificas
       const updateString = Object.entries(req.body).map(([key, value]) => `${key} = '${value}',`).join(' ').slice(0, -1);
 
