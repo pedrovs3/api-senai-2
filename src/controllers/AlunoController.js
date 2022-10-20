@@ -6,7 +6,7 @@
  * versao: 1.0.0
  */
 
-import { successfulMessage } from '../config/messages';
+import { ERRORS_MESSAGE, SUCCESSFUL_MESSAGE } from '../config/messages';
 import Aluno from '../models/Aluno';
 
 class AlunoController {
@@ -15,15 +15,16 @@ class AlunoController {
     try {
       const alunos = await Aluno.selectAllAlunos();
 
-      // Mudando bigInt para Number
-      alunos.forEach((aluno) => {
-        aluno.id = Number(aluno.id);
-      });
+      // // Mudando bigInt para Number ( SUBSTITUIDO PELO CAST NO BANCO )
+      // alunos.forEach((aluno) => {
+      //   aluno.id = Number(aluno.id);
+      // });
 
+      // Foi utilizado o DATE_FORMAT para converter a data para o padrao DD-MM-YYYY
       return res.status(200).json({ alunos });
     } catch (error) {
       console.log(error);
-      return res.status(400).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -31,12 +32,18 @@ class AlunoController {
   async show(req, res) {
     try {
       const aluno = await Aluno.selectAluno(req.params.id);
-      // Mudando bigInt para Number
-      aluno.id = Number(aluno.id);
 
+      // // Mudando bigInt para Number ( SUBSTITUIDO PELO CAST NO BANCO DE DADOS )
+      // aluno.id = Number(aluno.id);
+
+      // Foi utilizado o DATE_FORMAT para converter a data para o padrao DD-MM-YYYY
       return res.status(200).json({ aluno });
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res.status(500).json({
+        message: ERRORS_MESSAGE.INTERNAL_ERROR_DB,
+        code: 500,
+        message_db: error.meta.message,
+      });
     }
   }
 
@@ -45,9 +52,13 @@ class AlunoController {
     try {
       const response = await Aluno.insertAluno(req.body);
 
-      return res.status(201).json({ message: successfulMessage.STUDENT_CREATED });
+      return res.status(201).json({ message: SUCCESSFUL_MESSAGE.STUDENT_CREATED });
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res.status(500).json({
+        message: ERRORS_MESSAGE.INTERNAL_ERROR_DB,
+        code: 500,
+        message_db: error.meta.message,
+      });
     }
   }
 
@@ -58,9 +69,13 @@ class AlunoController {
 
       const alunoAtualizado = await Aluno.updateAluno(updateString, req.params.id);
 
-      return res.status(200).json(alunoAtualizado);
+      return res.status(200).json({ message: SUCCESSFUL_MESSAGE.UPDATE_ITEM });
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res.status(500).json({
+        message: ERRORS_MESSAGE.INTERNAL_ERROR_DB,
+        code: 500,
+        message_db: error.meta.message,
+      });
     }
   }
 
@@ -69,9 +84,9 @@ class AlunoController {
     try {
       const deletedAluno = await Aluno.deleteAluno(req.params.id);
 
-      return res.status(200).json({ deletedAluno });
+      return res.status(200).json({ message: SUCCESSFUL_MESSAGE.DELETE_ITEM });
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   }
 }

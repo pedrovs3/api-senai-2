@@ -1,5 +1,3 @@
-import emailValidator from './emailValidator';
-
 const validateEmpty = (body) => {
   const {
     nome, foto, rg, cpf, email, data_nascimento,

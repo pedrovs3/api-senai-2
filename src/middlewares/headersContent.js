@@ -1,10 +1,10 @@
-import { errorsMessage } from '../config/messages';
+import { ERRORS_MESSAGE } from '../config/messages';
 
 const headContent = async (req, res, next) => {
   const headerContentType = req.headers['content-type'];
 
   if (headerContentType !== 'application/json') {
-    res.status(415).json({ message: errorsMessage.CONTENT_TYPE });
+    res.status(415).json({ message: ERRORS_MESSAGE.CONTENT_TYPE });
   }
 
   next();

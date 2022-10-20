@@ -8,13 +8,14 @@
 import { Router } from 'express';
 import alunoController from '../controllers/AlunoController';
 import bodyContent from '../middlewares/bodyContent';
+import headContent from '../middlewares/headersContent';
 
 const routes = Router();
 
 routes.get('/', alunoController.index);
 routes.get('/:id', alunoController.show);
-routes.post('/', bodyContent, alunoController.store);
-routes.put('/:id', bodyContent, alunoController.update);
+routes.post('/', bodyContent, headContent, alunoController.store);
+routes.put('/:id', bodyContent, headContent, alunoController.update);
 routes.delete('/:id', alunoController.delete);
 
 export default routes;

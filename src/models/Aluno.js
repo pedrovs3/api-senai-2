@@ -28,13 +28,13 @@ class Aluno {
   async selectAllAlunos() {
     // Foi criado um objeto do tipo RecordSet (rsAlunos)
     // para receber os dados do banco, atraves do script sql (SELECT)
-    const rsAlunos = await prisma.$queryRaw `SELECT * FROM tbl_aluno ORDER BY id DESC;`;
+    const rsAlunos = await prisma.$queryRaw `SELECT CAST(id AS float) AS id, nome, foto, sexo, rg, cpf, email, telefone, celular, DATE_FORMAT(data_nascimento, '%d-%m-%Y') as data_nascimento FROM tbl_aluno ORDER BY id DESC;`;
 
     return (rsAlunos.length > 0 ? rsAlunos : false);
   }
 
   async selectAluno(id) {
-    const rsAluno = await prisma.$queryRawUnsafe `SELECT * FROM tbl_aluno WHERE id = ${id};`;
+    const rsAluno = await prisma.$queryRawUnsafe `SELECT CAST(id AS float) AS id, nome, foto, sexo, rg, cpf, email, telefone, celular, DATE_FORMAT(data_nascimento, '%d-%m-%Y') as data_nascimento FROM tbl_aluno WHERE id = ${id};`;
 
     return (rsAluno.length > 0 ? rsAluno[0] : false);
   }
