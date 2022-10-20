@@ -65,11 +65,12 @@ class AlunoController {
   // Update (Put or Patch) find and update
   async update(req, res) {
     try {
+      const { id } = req.params;
       // Update personalizado para chaves especificas
       const updateString = Object.entries(req.body).map(([key, value]) => `${key} = '${value}',`).join(' ').slice(0, -1);
 
       // const alunoAtualizado = await Aluno.updateAluno(req.body, req.params.id)
-      const alunoAtualizado = await Aluno.updateAluno(updateString, req.params.id);
+      await Aluno.updateAluno(updateString, id);
 
       return res.status(200).json({ message: SUCCESSFUL_MESSAGE.UPDATE_ITEM });
     } catch (error) {
@@ -84,7 +85,8 @@ class AlunoController {
   // Delete (Delete) find and delete
   async delete(req, res) {
     try {
-      const deletedAluno = await Aluno.deleteAluno(req.params.id);
+      const { id } = req.params;
+      await Aluno.deleteAluno(id);
 
       return res.status(200).json({ message: SUCCESSFUL_MESSAGE.DELETE_ITEM });
     } catch (error) {
