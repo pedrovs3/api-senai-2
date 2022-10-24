@@ -2,10 +2,10 @@
   "name": "aula20",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./bin/www.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
+    "dev": "nodemon ./bin/www.js",
     "start": "./node_modules/.bin/netlify-lambda serve ./src",
     "build": "./node_modules/.bin/netlify-lambda build ./src"
   },

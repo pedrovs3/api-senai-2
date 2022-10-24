@@ -50,7 +50,7 @@ class Aluno {
     celular = ${body.celular},
     data_nascimento = ${body.data_nascimento} WHERE id = ${id}` */
 
-    const sql = `UPDATE tbl_aluno SET ${updateData} WHERE id = ${id};`;
+    const sql = `UPDATE tbl_aluno SET ${updateData} WHERE id = '${id}';`;
     const updatedAluno = await prisma.$queryRawUnsafe(sql);
 
     return (!!updatedAluno);

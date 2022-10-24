@@ -4,6 +4,9 @@
  * Autor: Pedro Vieira
  * data_criacao: 06/10/2022
  * versao: 1.0.0
+ *
+ * Comentarios: Rota de verificaçao do ID feito atraves de uma rota
+ * especifica para erros.
  */
 
 import { ERRORS_MESSAGE, SUCCESSFUL_MESSAGE } from '../config/messages';
@@ -67,7 +70,7 @@ class AlunoController {
     try {
       const { id } = req.params;
 
-      // **** FAZER FUNÇAO PARA VERIFICAR A AUSENCIA DO ID NA ROTA ********* \\
+      // **** FAZER FUNÇAO PARA VERIFICAR A AUSENCIA DO ID NA ROTA ********* \\ ( !! Concluido !! )
 
       // Update personalizado para chaves especificas
       const updateString = Object.entries(req.body).map(([key, value]) => `${key} = '${value}',`).join(' ').slice(0, -1);

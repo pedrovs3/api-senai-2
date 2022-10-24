@@ -7,9 +7,9 @@
 
 import express from 'express';
 import cors from 'cors';
-import alunoRoutes from './src/routes/alunoRoutes';
-import corsMiddleware from './src/middlewares/corsMiddleware';
-import headContent from './src/middlewares/headersContent';
+import alunoRoutes from './routes/alunoRoutes';
+import corsMiddleware from './middlewares/corsMiddleware';
+import idRequired from './middlewares/idRequired';
 
 class App {
   constructor() {
@@ -21,13 +21,15 @@ class App {
   middlewares() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-    this.app.use(headContent);
     this.app.use(corsMiddleware);
     this.app.use(cors());
   }
 
   routes() {
     this.app.use('/student/', alunoRoutes);
+
+    // Error route for id empty
+    this.app.use('*/:id', idRequired);
   }
 }
 
