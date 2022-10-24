@@ -18,6 +18,7 @@ module.exports = {
     'no-empty-function': 'off',
     'template-tag-spacing': 'off',
     'no-unused-vars': 'off',
-    'camelcase': 'off',
+    camelcase: 'off',
+    'no-shadow': 'off',
   },
 };

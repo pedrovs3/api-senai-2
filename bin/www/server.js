@@ -5,7 +5,7 @@
  * versao: 1.0.0
  */
 
-import app from '../src/v1/app';
+import app from '../../src/v1/app';
 
 app.listen(process.env.PORT, () => {
   console.log(`http://localhost:${process.env.PORT}/`);

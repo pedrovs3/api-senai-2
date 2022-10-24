@@ -19,9 +19,9 @@ class AlunoController {
       const alunos = await Aluno.selectAllAlunos();
 
       // // Mudando bigInt para Number ( SUBSTITUIDO PELO CAST NO BANCO )
-      // alunos.forEach((aluno) => {
-      //   aluno.id = Number(aluno.id);
-      // });
+      alunos.forEach((aluno) => {
+        aluno.urlFoto = `http://localhost:3000/uploads/images/${aluno.foto}`;
+      });
 
       // Foi utilizado o DATE_FORMAT para converter a data para o padrao DD-MM-YYYY
       return res.status(200).json({ alunos });
@@ -35,6 +35,8 @@ class AlunoController {
   async show(req, res) {
     try {
       const aluno = await Aluno.selectAluno(req.params.id);
+
+      aluno.urlFoto = `http://localhost:3000/uploads/images/${aluno.foto}`;
 
       // // Mudando bigInt para Number ( SUBSTITUIDO PELO CAST NO BANCO DE DADOS )
       // aluno.id = Number(aluno.id);

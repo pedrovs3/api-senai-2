@@ -7,7 +7,9 @@
 
 import express from 'express';
 import cors from 'cors';
+import { resolve } from 'path';
 import alunoRoutes from './routes/alunoRoutes';
+import pictureRoutes from './routes/pictureRoutes';
 import corsMiddleware from './middlewares/corsMiddleware';
 import idRequired from './middlewares/idRequired';
 
@@ -23,10 +25,12 @@ class App {
     this.app.use(express.json());
     this.app.use(corsMiddleware);
     this.app.use(cors());
+    this.app.use('/uploads/images/', express.static(resolve(__dirname, '../', '../', 'uploads', 'images')));
   }
 
   routes() {
     this.app.use('/student/', alunoRoutes);
+    this.app.use('/picture/', pictureRoutes);
 
     // Error route for id empty
     this.app.use('*/:id', idRequired);
