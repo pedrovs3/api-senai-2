@@ -52,7 +52,6 @@ class Aluno {
 
     const sql = `UPDATE tbl_aluno SET ${updateData} WHERE id = '${id}';`;
 
-    console.log(sql);
     const updatedAluno = await prisma.$queryRawUnsafe(sql);
 
     return (!!updatedAluno);
