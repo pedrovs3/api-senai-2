@@ -1,12 +1,13 @@
 import multer from 'multer';
 import { extname, resolve } from 'path';
+import { ERRORS_MESSAGE } from './messages';
 
 const randomNumber = Math.floor(Math.random() * 10000 + 10000);
 
 export default {
   fileFilter: (req, file, cb) => {
     if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpg') {
-      return cb(new multer.MulterError('File must be an png or jpg'));
+      return cb(new multer.MulterError(ERRORS_MESSAGE.FILE_FORMAT));
     }
     return cb(null, true);
   },

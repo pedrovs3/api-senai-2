@@ -11,6 +11,8 @@ const ERRORS_MESSAGE = {
   CONTENT_TYPE: 'O cabecalho da requisicao nao contem um content-type Correto.',
   INTERNAL_ERROR_DB: 'Não foi possivel realizar a operação com o banco de dados.',
   REQUIRED_ID: 'ID is required in this route.',
+  FILE_FORMAT: 'File must be an png or jpg',
+  INEXISTENT: 'This item not exist in BD.',
 };
 
 const SUCCESSFUL_MESSAGE = {

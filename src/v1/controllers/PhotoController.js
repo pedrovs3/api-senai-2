@@ -1,4 +1,5 @@
 import multer from 'multer';
+import { ERRORS_MESSAGE } from '../config/messages';
 import multerConfig from '../config/multerConfig';
 import Aluno from '../models/Aluno';
 
@@ -17,9 +18,9 @@ class PhotoController {
 
         const photo = await Aluno.updateAluno(string, id);
 
-        res.status(200).json({ success: photo });
+        res.status(200).json({ error: !photo });
       } catch (error) {
-        res.status(400).json({ errors: ['Aluno Inexistente'] });
+        res.status(400).json({ errors: [ERRORS_MESSAGE.INEXISTENT] });
       }
     });
   }
