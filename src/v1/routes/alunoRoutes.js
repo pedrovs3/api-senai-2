@@ -9,13 +9,13 @@ import { Router } from 'express';
 import alunoController from '../controllers/AlunoController';
 import bodyContent from '../middlewares/bodyContent';
 import headContent from '../middlewares/headersContent';
+import idExists from '../middlewares/idExist';
 
 const routes = Router();
-
 routes.get('/', alunoController.index);
-routes.get('/:id', alunoController.show);
-routes.post('/', headContent, bodyContent, alunoController.store);
-routes.put('/:id', headContent, bodyContent, alunoController.update);
-routes.delete('/:id', alunoController.delete);
+routes.get('/:id', idExists, alunoController.show);
+routes.post('/', headContent, bodyContent, idExists, alunoController.store);
+routes.put('/:id', headContent, bodyContent, idExists, alunoController.update);
+routes.delete('/:id', idExists, alunoController.delete);
 
 export default routes;

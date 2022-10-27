@@ -47,7 +47,6 @@ class AlunoController {
       return res.status(500).json({
         message: ERRORS_MESSAGE.INTERNAL_ERROR_DB,
         code: 500,
-        message_db: error.meta.message,
       });
     }
   }
@@ -94,6 +93,7 @@ class AlunoController {
   async delete(req, res) {
     try {
       const { id } = req.params;
+
       await Aluno.deleteAluno(id);
 
       return res.status(200).json({ message: SUCCESSFUL_MESSAGE.DELETE_ITEM });

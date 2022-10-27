@@ -7,9 +7,10 @@
 
 import { Router } from 'express';
 import photoController from '../controllers/PhotoController';
+import idExist from '../middlewares/idExist';
 
 const routes = Router();
 
-routes.post('/:id', photoController.store);
+routes.post('/:id', idExist, photoController.store);
 
 export default routes;

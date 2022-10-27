@@ -10,6 +10,7 @@ import cors from 'cors';
 import { resolve } from 'path';
 import alunoRoutes from './routes/alunoRoutes';
 import pictureRoutes from './routes/pictureRoutes';
+import courseRoutes from './routes/courseRoutes';
 import corsMiddleware from './middlewares/corsMiddleware';
 import idRequired from './middlewares/idRequired';
 
@@ -29,11 +30,12 @@ class App {
   }
 
   routes() {
-    this.app.use('/student/', alunoRoutes);
-    this.app.use('/picture/', pictureRoutes);
+    this.app.use('/v1/student/', alunoRoutes);
+    this.app.use('/v1/picture/', pictureRoutes);
+    this.app.use('/v1/course/', courseRoutes);
 
     // Error route for id empty
-    this.app.use('*/:id', idRequired);
+    // this.app.use('*/:id', idRequired);
   }
 }
 

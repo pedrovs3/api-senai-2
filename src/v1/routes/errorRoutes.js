@@ -10,6 +10,6 @@ import idRequired from '../middlewares/idRequired';
 
 const routes = Router();
 
-routes.use('/', idRequired);
+routes.use('/:id', idRequired);
 
 export default routes;
