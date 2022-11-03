@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import courseController from '../controllers/CourseController';
 import bodyContent from '../middlewares/bodyContent';
-import idExist from '../middlewares/idExist';
 import idExistCourses from '../middlewares/idExistCourses';
 
 const routes = Router();

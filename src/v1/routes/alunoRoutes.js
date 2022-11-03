@@ -14,7 +14,7 @@ import idExists from '../middlewares/idExist';
 const routes = Router();
 routes.get('/', alunoController.index);
 routes.get('/:id', idExists, alunoController.show);
-routes.post('/', headContent, bodyContent, idExists, alunoController.store);
+routes.post('/', headContent, bodyContent, alunoController.store);
 routes.put('/:id', headContent, bodyContent, idExists, alunoController.update);
 routes.delete('/:id', idExists, alunoController.delete);
 

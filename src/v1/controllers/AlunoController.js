@@ -11,17 +11,13 @@
 
 import { ERRORS_MESSAGE, SUCCESSFUL_MESSAGE } from '../config/messages';
 import Aluno from '../models/Aluno';
+import AlunoCurso from '../models/Aluno_curso';
 
 class AlunoController {
   // Lista (Get)
   async index(req, res) {
     try {
       const alunos = await Aluno.selectAllAlunos();
-
-      // // Mudando bigInt para Number ( SUBSTITUIDO PELO CAST NO BANCO )
-      alunos.forEach((aluno) => {
-        aluno.urlFoto = `http://localhost:3000/uploads/images/${aluno.foto}`;
-      });
 
       // Foi utilizado o DATE_FORMAT para converter a data para o padrao DD-MM-YYYY
       return res.status(200).json({ alunos });
@@ -35,8 +31,6 @@ class AlunoController {
   async show(req, res) {
     try {
       const aluno = await Aluno.selectAluno(req.params.id);
-
-      aluno.urlFoto = `http://localhost:3000/uploads/images/${aluno.foto}`;
 
       // // Mudando bigInt para Number ( SUBSTITUIDO PELO CAST NO BANCO DE DADOS )
       // aluno.id = Number(aluno.id);
@@ -54,14 +48,34 @@ class AlunoController {
   // Store (Post) prisma create
   async store(req, res) {
     try {
+      console.log('aaa');
       const response = await Aluno.insertAluno(req.body);
+      const { id_course } = req.body.curso[0];
+      const anoAtual = new Date().getFullYear();
+
+      const { id: novoAlunoId } = await Aluno.selectLastId();
+      console.log(novoAlunoId);
+
+      const alunoJSON = {
+        id_aluno: novoAlunoId,
+        id_course,
+        matricula: `${novoAlunoId}${id_course}${anoAtual}`,
+        status_aluno: 'Cursando',
+      };
+      console.log(alunoJSON);
+
+      const insertCourse = await AlunoCurso.insertAluno_Course(alunoJSON);
+      if (!insertCourse) {
+        Aluno.deleteAluno(alunoJSON.id_aluno);
+        throw new Error('Houve um erro ao criar o aluno');
+      }
 
       return res.status(201).json({ message: SUCCESSFUL_MESSAGE.STUDENT_CREATED });
     } catch (error) {
       return res.status(500).json({
         message: ERRORS_MESSAGE.INTERNAL_ERROR_DB,
+        message_db: error,
         code: 500,
-        message_db: error.meta.message,
       });
     }
   }
@@ -97,6 +111,18 @@ class AlunoController {
       await Aluno.deleteAluno(id);
 
       return res.status(200).json({ message: SUCCESSFUL_MESSAGE.DELETE_ITEM });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  async aluno_course(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      const aluno = await Aluno.insertAluno_Course(id);
+
+      return res.status(200).json({ aluno });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

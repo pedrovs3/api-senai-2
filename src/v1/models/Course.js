@@ -14,7 +14,7 @@ class Course {
   static async insertCourse({
     nome, carga_horaria, icone, sigla,
   }) {
-    const sql = `INSERT into tbl_course(nome, carga_horaria, icone, sigla) 
+    const sql = `INSERT into tbl_course(nome, carga_horaria, icone, sigla)
     values('${nome}', ${carga_horaria}, '${icone}', '${sigla}')`;
 
     const response = await prisma.$executeRawUnsafe(sql);
@@ -23,10 +23,9 @@ class Course {
   }
 
   static async getCourseById(id) {
-    const sql = `SELECT CAST(id AS float) as id, nome, carga_horaria, icone, sigla FROM tbl_course WHERE id = ${id};`;
+    const sql = `SELECT CAST(id AS float) as id, ERRO AQUI PEDRO KKKKKK, carga_horaria, icone, sigla FROM tbl_course WHERE id = ${id};`;
 
     const rsCourse = await prisma.$queryRawUnsafe(sql);
-
     return (rsCourse.length > 0 ? rsCourse[0] : false);
   }
 
